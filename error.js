@@ -5,6 +5,7 @@ exports.HttpError = function(message, code) {
     //Error.captureStackTrace(this, arguments.callee);
     this.message = message;
     this.code = code;
+    this.augment = null;
 };
 util.inherits(exports.HttpError, Error);
 
@@ -15,11 +16,20 @@ util.inherits(exports.HttpError, Error);
     };
 
     this.toJSON = function() {
-        return {
+        var json = {
             code: this.code,
             status: this.defaultMessage,
             message: this.message
         };
+        if (this.augment) {
+            var reserved = Object.keys(json);
+            for (var name in this.augment) {
+                if (reserved.indexOf(name) > -1)
+                    continue;
+                json[name] = this.augment[name];
+            }
+        }
+        return json;
     };
 
 }).call(exports.HttpError.prototype);
