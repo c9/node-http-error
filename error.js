@@ -54,7 +54,7 @@ var statusCodes = {
     415: "Unsupported Media Type",
     416: "Requested Range Not Satisfiable",
     417: "Expectation Failed",
-    418: "Im a Teapot", // (RFC 2324) http://tools.ietf.org/html/rfc2324
+    418: "I'm a Teapot", // (RFC 2324) http://tools.ietf.org/html/rfc2324
     420: "Enhance Your Calm", // Returned by the Twitter Search and Trends API when the client is being rate limited
     422: "Unprocessable Entity", // (WebDAV) (RFC 4918)
     423: "Locked", // (WebDAV) (RFC 4918)
@@ -103,7 +103,7 @@ for (var status in statusCodes) {
 }
 
 function toCamelCase(str) {
-    return str.toLowerCase().replace(/(?:(^.)|(\s+.))/g, function(match) {
+    return str.toLowerCase().replace(/'/g, '').replace(/\-/g, ' ').replace(/(?:(^.)|(\s+.))/g, function(match) {
         return match.charAt(match.length-1).toUpperCase();
     });
 }
