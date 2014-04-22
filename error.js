@@ -4,7 +4,7 @@ exports.HttpError = function(message, code) {
     Error.call(this, message);
     //Error.captureStackTrace(this, arguments.callee);
     this.message = message;
-    this.code = code;
+    this.code = parseInt(code, 10);
     this.augment = null;
 };
 util.inherits(exports.HttpError, Error);
