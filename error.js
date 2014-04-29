@@ -4,7 +4,7 @@ exports.HttpError = function(message, code) {
     Error.call(this, message);
     //Error.captureStackTrace(this, arguments.callee);
     this.message = message;
-    this.code = code;
+    this.code = parseInt(code, 10);
     this.augment = null;
 };
 util.inherits(exports.HttpError, Error);
@@ -21,12 +21,22 @@ util.inherits(exports.HttpError, Error);
             status: this.defaultMessage,
             message: this.message
         };
+        var reserved = Object.keys(json);
+        
         if (this.augment) {
-            var reserved = Object.keys(json);
             for (var name in this.augment) {
                 if (reserved.indexOf(name) > -1)
                     continue;
                 json[name] = this.augment[name];
+            }
+        }
+        
+        reserved.push("augment");
+        for (var name in this) {
+            if (this.hasOwnProperty(name)) {
+                if (reserved.indexOf(name) > -1)
+                    continue;
+                json[name] = this[name];
             }
         }
         return json;
