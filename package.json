@@ -1,8 +1,8 @@
 {
   "name": "http-error",
   "description": "Expose HTTP error codes as Error objects",
-  "version": "0.0.5",
-  "author": "ajax.org B.V. <info@ajax.org>",
+  "version": "0.0.6",
+  "author": "Cloud9 B.V. <info@c9.io>",
   "contributors": [
     {
       "name": "Fabian Jakobs",
