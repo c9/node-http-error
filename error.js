@@ -97,6 +97,9 @@ for (var status in statusCodes) {
 
     var error = (function(defaultMsg, status) {
         return function(msg) {
+            if(!(this instanceof Error)) 
+                throw new Error("Must be called as constructor");
+
             this.defaultMessage = defaultMsg;
             exports.HttpError.call(this, msg || status + ": " + defaultMsg, status);
 
