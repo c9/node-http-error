@@ -1,11 +1,11 @@
 var util = require("util");
 
-exports.HttpError = function(message, code) {
+exports.HttpError = function(message, code, options) {
     Error.call(this, message);
     //Error.captureStackTrace(this, arguments.callee);
     this.message = message;
     this.code = parseInt(code, 10);
-    this.augment = null;
+    this.augment = options ? options : null;
 };
 util.inherits(exports.HttpError, Error);
 
@@ -96,12 +96,12 @@ for (var status in statusCodes) {
     var defaultMsg = statusCodes[status];
 
     var error = (function(defaultMsg, status) {
-        return function(msg) {
+        return function(msg, options) {
             if(!(this instanceof Error)) 
                 throw new Error("Must be called as constructor");
 
             this.defaultMessage = defaultMsg;
-            exports.HttpError.call(this, msg || status + ": " + defaultMsg, status);
+            exports.HttpError.call(this, msg || status + ": " + defaultMsg, status, options);
 
             if (status >= 500)
                 Error.captureStackTrace(this, arguments.callee);
