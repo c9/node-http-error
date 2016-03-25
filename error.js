@@ -5,7 +5,7 @@ exports.HttpError = function(message, code, options) {
     //Error.captureStackTrace(this, arguments.callee);
     this.message = message;
     this.code = parseInt(code, 10);
-    this.augment = options ? options : null;
+    this.augment = options ? options.augment : null;
 };
 util.inherits(exports.HttpError, Error);
 
