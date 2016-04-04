@@ -18,4 +18,10 @@ describe("HttpError", function() {
             HttpError.NotFound("foo");
         }, "Must be called as constructor", "You must call as a constructor");
     });
+    
+    it("Should set augment through constructor", function() {
+        var err = new HttpError.InternalServerError("Ding Boom Bats", { augment: "foo" });
+        
+        assert.equal(err.augment, "foo");
+    });
 })
