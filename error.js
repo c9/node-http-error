@@ -103,8 +103,7 @@ for (var status in statusCodes) {
             this.defaultMessage = defaultMsg;
             exports.HttpError.call(this, msg || status + ": " + defaultMsg, status, options);
 
-            if (status >= 500)
-                Error.captureStackTrace(this, arguments.callee);
+            Error.captureStackTrace(this, arguments.callee);
         };
     })(defaultMsg, status);
 
